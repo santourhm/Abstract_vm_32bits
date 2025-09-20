@@ -5,6 +5,7 @@
 #include "VMState.hpp"
 #include "Program.hpp"
 #include "Register.hpp"
+#include "Memory_AddressOperand.hpp"
 
 
 
@@ -14,7 +15,8 @@ class Debugger
         const std::vector<std::unique_ptr<IInstruction>>& instructions;  
         std::vector<bool> bkpt;
         std::unordered_map<std::string, Register*> pointer_OnReg;
-        Register * ptrReg;
+        IOperand* ptrOp ;  
+        std::unique_ptr<Memory_AddressOperand> memOp;
         
     public:
 
@@ -25,10 +27,11 @@ class Debugger
         void  execute(VMState * vms);
         void  execute_OneInstruction(VMState * vms);
 
-        void setBreakpoint(uint32_t  bkpt);
-        void setReg_Pointer(std::string str_addr);
+        void  setBreakpoint(uint32_t  bkpt);
+        void  setReg_Pointer(std::string str_addr);
+        void  setMemOP_Pointer(std::unique_ptr<Memory_AddressOperand> memOp);
         Value read_Pointer() const;
-        void write_Pointer(uint32_t value);
+        void  write_Pointer(uint32_t value);
 };
 
 

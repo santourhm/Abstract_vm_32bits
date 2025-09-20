@@ -4,6 +4,7 @@
 #include "EnvRegisters.hpp"
 #include "Op_Results.hpp"
 #include "Debugger.hpp"
+#include <cctype>
 
 extern bool ishalt_program;
 extern bool debug_mode;
@@ -78,6 +79,76 @@ void Program::executeProgram(VMState* vms)
 }
 
 
+static std::vector<std::string> split_whitespace(const std::string& cmd) 
+{
+    std::istringstream iss(cmd);
+    std::vector<std::string> tokens;
+    std::string token;
+
+    while (iss >> token) {   
+        tokens.push_back(token);
+    }
+
+    return tokens;
+}
+
+
+static std::unique_ptr<Memory_AddressOperand> parse_MemoryOp(const std::string& op, VMState* vms)
+{
+    Register* reg;
+
+    size_t posParen = op.find('(');
+
+    if (posParen == std::string::npos || op.back() != ')') throw std::runtime_error("Error : invalid input address!");
+    
+
+    
+    std::string offStr = op.substr(0, posParen);
+    if (offStr.empty()) throw std::runtime_error("Error : no offset detected!");
+    
+
+    int offset;
+    try {
+        offset = std::stoi(offStr); 
+    } catch (...) {
+        throw std::runtime_error("Error : invalid offset!");
+    }
+
+    
+    std::string str_reg = op.substr(posParen + 1, op.size() - posParen - 2);
+
+    if (str_reg[0] == 'R' && std::isdigit(str_reg[1])) 
+    {
+        int regNumber = std::stoi(str_reg.substr(1));
+
+        if (regNumber < 0 || regNumber > 15)  throw std::runtime_error("Error : invalid register number!");
+        
+        reg = vms->getEnv_Registers()->getR(regNumber);
+    }
+    else if (str_reg == "GB") 
+    {
+        reg = vms->getEnv_Registers()->getGB();
+    }
+    else if (str_reg == "LB") 
+    {
+        reg = vms->getEnv_Registers()->getLB();
+    }
+    else if (str_reg == "SP") 
+    {
+        reg = vms->getEnv_Registers()->getSP();
+    }
+    else if (str_reg == "PC") 
+    {
+        reg = vms->getEnv_Registers()->getPC();
+    }
+    else 
+    {
+        throw std::runtime_error("Error : unknown register!");
+    }
+
+    return std::make_unique<Memory_AddressOperand>(offset, reg, vms->getMemory());
+}
+
 
 void  Program::debugProgram(VMState* vms)
 {
@@ -113,7 +184,7 @@ void  Program::debugProgram(VMState* vms)
 
                 std::cout << "$ avm-dbg >> " ;
                 std::string cmd ;
-
+                
                 std::getline(std::cin,cmd);
 
                 if(cmd == "s" || cmd == "step")
@@ -132,51 +203,67 @@ void  Program::debugProgram(VMState* vms)
                 }
                 else if (cmd.rfind("p", 0) == 0)  
                 {
-                        std::string reg = cmd.substr(2);  
-                        
+                        auto tokens = split_whitespace(cmd);
+                        size_t s = tokens.size() ;
+                        if(s == 2 && tokens[1].size() == 2) // reg
+                        {
+                                std::string reg = tokens[1] ;  
+                                
 
-                        try {
-                                debug.setReg_Pointer(reg);
-                                std::cout << "pointing on : " << reg << std::endl;
+                                try {
+                                        debug.setReg_Pointer(reg);
+                                        std::cout << "pointing on : " << reg << std::endl;
 
+                                }
+                                catch (const std::runtime_error& e) {
+                                        std::cerr << e.what() << std::endl;
+                                }
+                        }    
+                        if(s == 2 && (tokens[1].size() == 5 || (tokens[1].size() == 6 && tokens[1][0] == '-')) ) // mem
+                        {
+                                std::string mem = tokens[1] ;  
+                                
+                                try {
+                                        debug.setMemOP_Pointer(parse_MemoryOp(mem,vms));
+                                        std::cout << "pointing on : " << mem << std::endl;
+                                }
+                                catch (const std::runtime_error& e) {
+                                        std::cerr << e.what() << std::endl;
+                                }
                         }
-                        catch (const std::runtime_error& e) {
-                                std::cerr << e.what() << std::endl;
+                        else if (s > 2)
+                        {
+                                std::cerr << "unknown p arguement" << std::endl;
                         }
-                }
-                else if(cmd.rfind("rd", 0) == 0)
+                        else 
+                        {
+                                 std::cerr << "ignoring ... " << std::endl;
+                                continue;
+                        }
+                }                           
+                else if(cmd == "r" || cmd == "read")
                 {
                         try
                         {  
                                 Value val =  debug.read_Pointer() ;
 
-                                std::cout << "Value = ";
+                                std::cout << "Value = " << val << std::endl;
 
-                                if(val.getType() == TypeTag::STRING)
-                                {
-                                        std::cout << val.getStr() ;
-                                }
-                                else if(val.getType() == TypeTag::ADDRESS)
-                                {
-                                        std::cout << "0x" << std::hex << val.getAddr();
-                                }
-                                else if(val.getType() == TypeTag::INTEGER)
-                                {
-                                        std::cout << val.getInt();
-                                }
-                                else if(val.getType() == TypeTag::FLOAT)
-                                {
-                                        std::cout << val.getFloat();
-                                }
-                                else if(val.getType() == TypeTag::NULL_ADDR)
-                                {
-                                        std::cout << "null";
-                                }
-                                else
-                                {
-                                        std::cout << "UNDEFINED" ;
-                                }
-                                std::cout  << std::endl;
+                        }
+                        catch(const std::runtime_error& e)
+                        {
+                                std::cerr << e.what() << std::endl;
+                        }
+                        
+                }
+                else if(cmd == "w" || cmd == "write")
+                {
+                        try
+                        {  
+                                Value val =  debug.read_Pointer() ;
+                                
+                                std::cout << "Value = " << val << std::endl;
+
                         }
                         catch(const std::runtime_error& e)
                         {
@@ -197,7 +284,11 @@ void  Program::debugProgram(VMState* vms)
                                 std::cerr << "Invalid address." << std::endl;
                         }
                 }
-                else
+                else if(split_whitespace(cmd).size() == 0) 
+                {
+                    continue;
+                }
+                else 
                 {
                     std::cerr << "Error : invalid input" << std::endl;
                 }

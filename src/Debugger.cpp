@@ -6,7 +6,7 @@
 
 
 Debugger::Debugger(VMState * vms, const std::vector<std::unique_ptr<IInstruction>>& inst)
-    : size(inst.size()), instructions(inst), bkpt(size, false), ptrReg(nullptr)
+    : size(inst.size()), instructions(inst), bkpt(size, false), ptrOp(nullptr)
 {
     EnvRegisters* env = vms->getEnv_Registers();
 
@@ -87,31 +87,37 @@ void  Debugger::execute_OneInstruction(VMState * vms)
 }
 
 
-void  Debugger::setReg_Pointer(std::string str_addr)
+void Debugger::setReg_Pointer(std::string str_addr)
 {
-        if (pointer_OnReg.find(str_addr) == pointer_OnReg.end()) 
-        {
-            throw std::runtime_error("register name is invalid");
-            return;
-        }
+    if (pointer_OnReg.find(str_addr) == pointer_OnReg.end()) 
+    {
+        throw std::runtime_error("register name is invalid");
+    }
 
-        ptrReg = pointer_OnReg.at(str_addr);
+    Register* reg = pointer_OnReg.at(str_addr);
+    this->ptrOp = reg;  
 }
+
+void Debugger::setMemOP_Pointer(std::unique_ptr<Memory_AddressOperand> memOp) 
+{
+    this->memOp = std::move(memOp); 
+    this->ptrOp = this->memOp.get(); 
+}
+
 
 
 Value Debugger::read_Pointer() const
 {
-        if(ptrReg == nullptr)
+        if(ptrOp == nullptr )
             throw std::runtime_error("null ptr, you need to point on a somthing");
-        
-        return ptrReg->read();
+        return ptrOp->read();
 }
 
 
 void Debugger::write_Pointer(uint32_t value)
 {
-        if(ptrReg == nullptr)
+        if(ptrOp == nullptr)
             throw std::runtime_error("null ptr, you need to point on a somthing");
         
-        ptrReg->write(Value(value));
+        ptrOp->write(Value(value));
 }

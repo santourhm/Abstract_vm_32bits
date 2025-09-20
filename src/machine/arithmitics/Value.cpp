@@ -324,3 +324,31 @@ std::string Value::get_str_type()
       }
       return std::string("UKNOWN");
 }
+
+
+
+
+std::ostream& operator<<(std::ostream& os, const Value& val) 
+{
+    switch (val.getType()) {
+        case TypeTag::STRING:
+            os << val.getStr();
+            break;
+        case TypeTag::ADDRESS:
+            os << "0x" << std::hex << val.getAddr() << std::dec; 
+            break;
+        case TypeTag::INTEGER:
+            os << val.getInt();
+            break;
+        case TypeTag::FLOAT:
+            os << val.getFloat();
+            break;
+        case TypeTag::NULL_ADDR:
+            os << "null";
+            break;
+        default:
+            os << "UNDEFINED";
+            break;
+    }
+    return os;
+}

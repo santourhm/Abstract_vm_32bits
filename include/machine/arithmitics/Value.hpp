@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <string>
 #include <variant>
+#include <ostream>   
+#include <iomanip> 
 
 struct Op_Results;
 struct CC;
@@ -71,6 +73,10 @@ class Value
         uint32_t getAddr() const;
         std::string getStr() const;
         std::string get_str_type();
+        
 };
+
+
+std::ostream& operator<<(std::ostream& os, const Value& val) ;
 
 #endif
