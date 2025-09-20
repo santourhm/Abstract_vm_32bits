@@ -24,9 +24,17 @@ void BSR::execute(VMState * vms)
         IOperand * base = operands[0].get();
         LabelOperand* label = dynamic_cast<LabelOperand*>(base);
         Memory_AddressOperand* Memory_Op = dynamic_cast<Memory_AddressOperand*>(base);
-        if(label != nullptr) {
+        if(label != nullptr || Memory_Op!= nullptr) {
 
-            std::string label_str = label->read().getStr();
+            std::string label_str ;
+            if(label)
+                label_str = label->read().getStr();
+            else if(Memory_Op)
+                label_str = Memory_Op->read().getStr();
+            else
+            {
+                throw std::runtime_error("Error : unkown label operand");
+            }
             std::unordered_map<std::string, Value>& Symbol_Table = vms->getSymbol_Table();
 
             if (Symbol_Table.find(label_str) == Symbol_Table.end()) 
@@ -37,11 +45,9 @@ void BSR::execute(VMState * vms)
             addr = Symbol_Table.at(label_str);
             //std::cout << "LABEL Addr : " << addr.getAddr() << std::endl;
         }
-        else if(Memory_Op != nullptr)
+        else 
         {
-            addr = Memory_Op->getEffectiveAddress();
-            //std::cout << "MemOP Addr : " << addr.getAddr() << std::endl;
-
+            throw std::runtime_error("Error : unkown label operand");
         }
 
         Register * PC = vms->getEnv_Registers()->getPC();

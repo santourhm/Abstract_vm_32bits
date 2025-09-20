@@ -161,6 +161,10 @@ void  Program::debugProgram(VMState* vms)
         PC->write(Value(pc));
         int size = instructions.size();
         Value V_PC = PC->read();
+
+        for (const auto& [key, value] : vms->getSymbol_Table()) {
+                std::cout << key << " : " << value << '\n';
+        }
         
         Debugger debug(vms,instructions);
 
@@ -268,6 +272,21 @@ void  Program::debugProgram(VMState* vms)
                         catch(const std::runtime_error& e)
                         {
                                 std::cerr << e.what() << std::endl;
+                        }
+                        
+                }
+                else if(cmd.rfind("sw",0) == 0 || cmd.rfind("show",0) == 0)
+                {
+                        try 
+                        {
+                           uint32_t addr = std::stoul(cmd.substr(2), nullptr, 0); 
+                           std::cout << "Instruction at 0x" << std::hex << addr ;
+                           std::cout << "  :" ;
+                           instructions[addr].get()->debug(vms);
+
+                        } catch (...) 
+                        {
+                                std::cerr << "Invalid address." << std::endl;
                         }
                         
                 }
