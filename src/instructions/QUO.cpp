@@ -36,6 +36,8 @@ void QUO::execute(VMState * vms)
     catch(const std::runtime_error& e)
     {
         std::cerr << "Error :" << e.what() << '\n';
+        exit(EXIT_SUCCESS);
+
     }
 }
 

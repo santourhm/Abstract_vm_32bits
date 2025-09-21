@@ -598,6 +598,7 @@ void VMListener::enterInstruction(VMGrammarParser::InstructionContext *ctx)
         std::cerr << "Semantic Error on line " 
                   << ctx->getStart()->getLine() 
                   << ": " << e.what() << std::endl;
+        exit(EXIT_FAILURE);
     }
     
     TmpInst.push_back(std::move(inst));
@@ -708,9 +709,17 @@ void VMListener::enterLabel(VMGrammarParser::LabelContext * ctx)
 }
 
 void VMListener::visitErrorNode(antlr4::tree::ErrorNode *node) {
-    std::cerr << "Parse tree contains error node: " 
-              << node->getText() << std::endl;
+    std::cerr << "Semantic Error " 
+                  << node->getText() << std::endl;
+    exit(EXIT_FAILURE);
 }
+
+// void VMListener::exitInvalid_opcode(VMGrammarParser::Invalid_opcodeContext *ctx) {
+//     std::cerr << "Semantic Error: unknown opcode '" 
+//               << ctx->getText() << "' at line "
+//               << ctx->start->getLine() << std::endl;
+//     exit(EXIT_FAILURE);
+// }
 
 
 

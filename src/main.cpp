@@ -9,7 +9,7 @@
 #include "Program.hpp"
 #include <memory>
 #include "VMState.hpp"
-
+#include "VMErrorListener.hpp"
 using namespace antlr4;
 
 bool ishalt_program = false; 
@@ -67,6 +67,12 @@ int main(int argc, const char* argv[]) {
         CommonTokenStream tokens(&lexer);
         VMGrammarParser   parser(&tokens);
 
+        lexer.removeErrorListeners();
+        parser.removeErrorListeners();
+
+        auto errorListener = new VMErrorListener();
+        lexer.addErrorListener(errorListener);
+        parser.addErrorListener(errorListener);
 
         tree::ParseTree *tree = parser.program();
         
@@ -87,10 +93,11 @@ int main(int argc, const char* argv[]) {
         else
             programAST.executeProgram(vms.get());
         
-        
+        delete errorListener;
     }
     catch (const std::exception& e) {
         std::cerr << std::string("Error at ")  << e.what() << std::endl;
+        
         return 1;
     }
 

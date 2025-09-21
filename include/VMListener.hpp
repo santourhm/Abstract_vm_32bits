@@ -27,10 +27,10 @@ class VMListener : public VMGrammarBaseListener
         void enterMemory_address(VMGrammarParser::Memory_addressContext * ctx);
         void enterImmediate(VMGrammarParser::ImmediateContext * ctx) override;
         void enterLabel(VMGrammarParser::LabelContext * ctx) override;
-        void visitErrorNode(antlr4::tree::ErrorNode * /*node*/) override ;
+        void visitErrorNode(antlr4::tree::ErrorNode * node) override ;
         void enterString_literal(VMGrammarParser::String_literalContext * ctx) override;
         void enterLabel_definition(VMGrammarParser::Label_definitionContext * /*ctx*/) override ;
-
+        //void exitInvalid_opcode(VMGrammarParser::Invalid_opcodeContext *ctx) override;        
 
 
         void createDval_RmInstruction(IInstruction * inst ,const std::vector<VMGrammarParser::OperandContext *> &operands, size_t line) ;

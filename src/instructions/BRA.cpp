@@ -47,7 +47,8 @@ void BRA::execute(VMState * vms)
     }
     catch(const std::runtime_error& e)
     {
-        std::cerr << std::string("Error at ") + __FILE__ + ": " + std::to_string(__LINE__) << e.what() << '\n';
+        std::cerr << std::string("Error at ") << e.what() << '\n';
+        exit(EXIT_SUCCESS);
     }
     
     

@@ -74,8 +74,9 @@ void BSR::execute(VMState * vms)
 
     }
     catch(const std::runtime_error& e) {
-        std::cerr << "Error at " << __FILE__ << ":" << __LINE__ 
-                  << " " << e.what() << '\n';
+        std::cerr << "Error at " << e.what() << '\n';
+        exit(EXIT_SUCCESS);
+
     }
 }
 
