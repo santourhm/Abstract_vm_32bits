@@ -7,6 +7,7 @@
 #include "WINT.hpp"
 #include "WNL.hpp"
 #include "ADD.hpp"
+#include "FMA.hpp"
 #include "MUL.hpp"
 #include "NEW.hpp"
 #include "OPP.hpp"
@@ -316,6 +317,13 @@ void VMListener::enterInstruction(VMGrammarParser::InstructionContext *ctx)
             if (numOperands != 2) 
                 throw std::runtime_error(" SUB needs exactly 2 operands");
             inst = std::make_unique<SUB>();
+            createDval_RmInstruction(inst.get(),ops,line);
+        }
+        else if(opcodeCtx->FMA())
+        {
+            if (numOperands != 2) 
+                throw std::runtime_error(" FMA needs exactly 2 operands");
+            inst = std::make_unique<FMA>();
             createDval_RmInstruction(inst.get(),ops,line);
         }
         else if(opcodeCtx->QUO())

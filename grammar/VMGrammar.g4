@@ -19,7 +19,7 @@ opcode
       BEQ | BNE | BLT | BGT | BGE | BLE | BOV  | SEQ | SNE | SLT 
       | SGT  | SGE | SLE | SOV | SHL | SHR | BRA | WINT | WNL | WFLOAT | HALT 
       | STORE |  PUSH | POP |  LEA | PEA | BSR | RTS | SUBSP | ADDSP | RINT | RFLOAT | ERROR
-      | TSTO | NEW | WTYPE | WADDR
+      | TSTO | NEW | WTYPE | WADDR | FMA
     ;
 
 operand
@@ -58,7 +58,8 @@ QUO : 'QUO';
 DIV : 'DIV';
 ADD : 'ADD';
 SUB : 'SUB';
-REM : 'REM' ; 
+REM : 'REM'; 
+FMA : 'FMA';
 WSTR: 'WSTR';
 LOAD: 'LOAD';
 NEW : 'NEW' ;
