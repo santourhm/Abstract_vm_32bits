@@ -39,51 +39,45 @@ void  Debugger::execute(VMState * vms)
 
         while (true)
         {
-                Value V_PC = PC->read();
+                uint32_t addr = PC->read().getAddr();
                 
-                if(size <= V_PC.getAddr() )
+                if(size <= addr )
                 {                       
                         std::cout << " End of program !" << std::endl;
                         break;
                 }
 
-
-                if(bkpt[V_PC.getAddr()])
+                if (isBreakpoint(addr)) 
                 {
-                    std::cout << "Breakpoint done at : 0x" << std::hex << V_PC.getAddr() << std::endl;
-                    break;
+                        std::cout << "Hit breakpoint at 0x" << std::hex << addr << std::endl;
+                        break; 
                 }
 
-                instructions[V_PC.getAddr()]->execute(vms);
+                instructions[addr]->execute(vms);
 
-                V_PC++;
+                if (!vms->not_halt) break;
 
-                PC->write(V_PC); 
+                Value v = PC->read();
+                v++;
+                PC->write(v);
         }
 }
 
 
 
-void  Debugger::execute_OneInstruction(VMState * vms)
+void Debugger::execute_OneInstruction(VMState* vms)
 {
-        EnvRegisters * envReg = vms->getEnv_Registers();
-        Register * PC =  envReg->getPC();
+        auto regs = vms->getEnv_Registers();
+        Register* PC = regs->getPC();
 
-        Value V_PC = PC->read();
-                
-        if(size <= V_PC.getAddr() )
-        {                       
-                std::cout << " End of program !" << std::endl;
-                return;
-        }
-        
-        instructions[V_PC.getAddr()]->execute(vms);
+        uint32_t addr = PC->read().getAddr();
+        instructions[addr]->execute(vms);
 
-        V_PC = PC->read();
+        if (!vms->not_halt) return;
 
-        V_PC++;
-        
-        PC->write(V_PC); 
+        Value v = PC->read();
+        v++;
+        PC->write(v);
 }
 
 
@@ -114,10 +108,40 @@ Value Debugger::read_Pointer() const
 }
 
 
-void Debugger::write_Pointer(uint32_t value)
+void Debugger::write_Pointer(Value value)
 {
         if(ptrOp == nullptr)
             throw std::runtime_error("null ptr, you need to point on a somthing");
         
-        ptrOp->write(Value(value));
+        ptrOp->write(value);
+}
+
+
+void Debugger::deleteBreakpoint(uint32_t addr)
+{
+    if (addr >= size) throw std::runtime_error("Breakpoint out of range");
+    bkpt[addr] = false;
+}
+
+
+void Debugger::clearBreakpoints()
+{
+    std::fill(bkpt.begin(), bkpt.end(), false);
+}
+
+
+std::vector<uint32_t> Debugger::getBreakpoints() const
+{
+    std::vector<uint32_t> list;
+    for (uint32_t i = 0; i < bkpt.size(); ++i) {
+        if (bkpt[i]) list.push_back(i);
+    }
+    return list;
+}
+
+
+bool Debugger::isBreakpoint(uint32_t addr) const
+{
+    if (addr >= size) return false;
+    return bkpt[addr];
 }

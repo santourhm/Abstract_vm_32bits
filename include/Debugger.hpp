@@ -28,10 +28,16 @@ class Debugger
         void  execute_OneInstruction(VMState * vms);
 
         void  setBreakpoint(uint32_t  bkpt);
+
+        void deleteBreakpoint(uint32_t addr);
+
+        void clearBreakpoints();
         void  setReg_Pointer(std::string str_addr);
+        std::vector<uint32_t> getBreakpoints() const;
+        bool  isBreakpoint(uint32_t addr) const;
         void  setMemOP_Pointer(std::unique_ptr<Memory_AddressOperand> memOp);
         Value read_Pointer() const;
-        void  write_Pointer(uint32_t value);
+        void  write_Pointer(Value value);
 };
 
 

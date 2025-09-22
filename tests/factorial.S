@@ -1,4 +1,4 @@
-    LOAD #12, R1       
+    LOAD #5, R1       
     PUSH R1
     BSR fact
     SUBSP #1

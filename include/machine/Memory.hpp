@@ -21,6 +21,8 @@ class Memory
         Memory(EnvRegisters * r_env,size_t total_memory_words = TOTAL_MEMORY_WORDS);
         ~Memory() = default;
 
+        uint32_t getTotalSize() const {return TOTAL_MEMORY_WORDS;};
+
         void initialize();
         void push(const Value& v);
         Value pop();
