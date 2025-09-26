@@ -12,16 +12,17 @@
 class  VMGrammarLexer : public antlr4::Lexer {
 public:
   enum {
-    OPP = 1, MUL = 2, QUO = 3, DIV = 4, ADD = 5, SUB = 6, REM = 7, WSTR = 8, 
-    LOAD = 9, NEW = 10, CMP = 11, BRA = 12, SEQ = 13, SNE = 14, SLT = 15, 
-    SGT = 16, SGE = 17, SLE = 18, SOV = 19, SHL = 20, SHR = 21, BEQ = 22, 
-    BNE = 23, BGE = 24, BLT = 25, BGT = 26, BLE = 27, BOV = 28, BSR = 29, 
-    RTS = 30, STORE = 31, PUSH = 32, POP = 33, LEA = 34, PEA = 35, WINT = 36, 
-    WNL = 37, HALT = 38, WFLOAT = 39, WTYPE = 40, WADDR = 41, SUBSP = 42, 
-    ADDSP = 43, TSTO = 44, RINT = 45, RFLOAT = 46, ERROR = 47, COMMA = 48, 
-    OPARENT = 49, CPARENT = 50, HASH = 51, MINUS = 52, COLON = 53, RREGISTER = 54, 
-    GBREGISTER = 55, LBREGISTER = 56, SPREGISTER = 57, VALLNULL = 58, STRING_LITERAL = 59, 
-    INT = 60, FLOAT = 61, ID = 62, COMMENT = 63, WS = 64, NEWLINE = 65
+    OPP = 1, MUL = 2, QUO = 3, DIV = 4, ADD = 5, SUB = 6, REM = 7, FMA = 8, 
+    WSTR = 9, LOAD = 10, NEW = 11, CMP = 12, BRA = 13, SEQ = 14, SNE = 15, 
+    SLT = 16, SGT = 17, SGE = 18, SLE = 19, SOV = 20, SHL = 21, SHR = 22, 
+    BEQ = 23, BNE = 24, BGE = 25, BLT = 26, BGT = 27, BLE = 28, BOV = 29, 
+    BSR = 30, RTS = 31, STORE = 32, PUSH = 33, POP = 34, LEA = 35, PEA = 36, 
+    WINT = 37, WNL = 38, HALT = 39, WFLOAT = 40, WTYPE = 41, WADDR = 42, 
+    SUBSP = 43, ADDSP = 44, TSTO = 45, RINT = 46, RFLOAT = 47, ERROR = 48, 
+    COMMA = 49, OPARENT = 50, CPARENT = 51, HASH = 52, MINUS = 53, COLON = 54, 
+    RREGISTER = 55, GBREGISTER = 56, LBREGISTER = 57, SPREGISTER = 58, VALLNULL = 59, 
+    STRING_LITERAL = 60, INT = 61, FLOAT = 62, ID = 63, COMMENT = 64, WS = 65, 
+    NEWLINE = 66
   };
 
   explicit VMGrammarLexer(antlr4::CharStream *input);

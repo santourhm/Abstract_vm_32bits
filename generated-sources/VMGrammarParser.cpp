@@ -59,52 +59,52 @@ void vmgrammarParserInitialize() {
     },
     std::vector<std::string>{
       "", "'OPP'", "'MUL'", "'QUO'", "'DIV'", "'ADD'", "'SUB'", "'REM'", 
-      "'WSTR'", "'LOAD'", "'NEW'", "'CMP'", "'BRA'", "'SEQ'", "'SNE'", "'SLT'", 
-      "'SGT'", "'SGE'", "'SLE'", "'SOV'", "'SHL'", "'SHR'", "'BEQ'", "'BNE'", 
-      "'BGE'", "'BLT'", "'BGT'", "'BLE'", "'BOV'", "'BSR'", "'RTS'", "'STORE'", 
-      "'PUSH'", "'POP'", "'LEA'", "'PEA'", "'WINT'", "'WNL'", "'HALT'", 
-      "'WFLOAT'", "'WTYPE'", "'WADDR'", "'SUBSP'", "'ADDSP'", "'TSTO'", 
-      "'RINT'", "'RFLOAT'", "'ERROR'", "','", "'('", "')'", "'#'", "'-'", 
-      "':'", "", "'GB'", "'LB'", "'SP'", "'null'"
+      "'FMA'", "'WSTR'", "'LOAD'", "'NEW'", "'CMP'", "'BRA'", "'SEQ'", "'SNE'", 
+      "'SLT'", "'SGT'", "'SGE'", "'SLE'", "'SOV'", "'SHL'", "'SHR'", "'BEQ'", 
+      "'BNE'", "'BGE'", "'BLT'", "'BGT'", "'BLE'", "'BOV'", "'BSR'", "'RTS'", 
+      "'STORE'", "'PUSH'", "'POP'", "'LEA'", "'PEA'", "'WINT'", "'WNL'", 
+      "'HALT'", "'WFLOAT'", "'WTYPE'", "'WADDR'", "'SUBSP'", "'ADDSP'", 
+      "'TSTO'", "'RINT'", "'RFLOAT'", "'ERROR'", "','", "'('", "')'", "'#'", 
+      "'-'", "':'", "", "'GB'", "'LB'", "'SP'", "'null'"
     },
     std::vector<std::string>{
-      "", "OPP", "MUL", "QUO", "DIV", "ADD", "SUB", "REM", "WSTR", "LOAD", 
-      "NEW", "CMP", "BRA", "SEQ", "SNE", "SLT", "SGT", "SGE", "SLE", "SOV", 
-      "SHL", "SHR", "BEQ", "BNE", "BGE", "BLT", "BGT", "BLE", "BOV", "BSR", 
-      "RTS", "STORE", "PUSH", "POP", "LEA", "PEA", "WINT", "WNL", "HALT", 
-      "WFLOAT", "WTYPE", "WADDR", "SUBSP", "ADDSP", "TSTO", "RINT", "RFLOAT", 
-      "ERROR", "COMMA", "OPARENT", "CPARENT", "HASH", "MINUS", "COLON", 
-      "RREGISTER", "GBREGISTER", "LBREGISTER", "SPREGISTER", "VALLNULL", 
+      "", "OPP", "MUL", "QUO", "DIV", "ADD", "SUB", "REM", "FMA", "WSTR", 
+      "LOAD", "NEW", "CMP", "BRA", "SEQ", "SNE", "SLT", "SGT", "SGE", "SLE", 
+      "SOV", "SHL", "SHR", "BEQ", "BNE", "BGE", "BLT", "BGT", "BLE", "BOV", 
+      "BSR", "RTS", "STORE", "PUSH", "POP", "LEA", "PEA", "WINT", "WNL", 
+      "HALT", "WFLOAT", "WTYPE", "WADDR", "SUBSP", "ADDSP", "TSTO", "RINT", 
+      "RFLOAT", "ERROR", "COMMA", "OPARENT", "CPARENT", "HASH", "MINUS", 
+      "COLON", "RREGISTER", "GBREGISTER", "LBREGISTER", "SPREGISTER", "VALLNULL", 
       "STRING_LITERAL", "INT", "FLOAT", "ID", "COMMENT", "WS", "NEWLINE"
     }
   );
   static const int32_t serializedATNSegment[] = {
-  	4,1,65,91,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+  	4,1,66,91,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
   	7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,1,0,5,0,26,8,0,10,0,12,0,29,9,
   	0,1,0,3,0,32,8,0,1,0,1,0,1,1,1,1,3,1,38,8,1,1,1,4,1,41,8,1,11,1,12,1,
   	42,1,2,1,2,1,3,1,3,1,3,1,4,1,4,1,4,1,4,3,4,54,8,4,3,4,56,8,4,1,5,1,5,
   	1,6,1,6,1,6,1,6,1,6,3,6,65,8,6,1,7,1,7,1,8,1,8,1,9,3,9,72,8,9,1,9,3,9,
   	75,8,9,1,9,1,9,1,9,1,9,1,10,1,10,3,10,83,8,10,1,10,1,10,3,10,87,8,10,
-  	1,11,1,11,1,11,0,0,12,0,2,4,6,8,10,12,14,16,18,20,22,0,3,1,0,1,47,1,0,
-  	54,57,1,0,60,61,93,0,27,1,0,0,0,2,37,1,0,0,0,4,44,1,0,0,0,6,46,1,0,0,
+  	1,11,1,11,1,11,0,0,12,0,2,4,6,8,10,12,14,16,18,20,22,0,3,1,0,1,48,1,0,
+  	55,58,1,0,61,62,93,0,27,1,0,0,0,2,37,1,0,0,0,4,44,1,0,0,0,6,46,1,0,0,
   	0,8,49,1,0,0,0,10,57,1,0,0,0,12,64,1,0,0,0,14,66,1,0,0,0,16,68,1,0,0,
   	0,18,74,1,0,0,0,20,80,1,0,0,0,22,88,1,0,0,0,24,26,3,2,1,0,25,24,1,0,0,
   	0,26,29,1,0,0,0,27,25,1,0,0,0,27,28,1,0,0,0,28,31,1,0,0,0,29,27,1,0,0,
   	0,30,32,3,4,2,0,31,30,1,0,0,0,31,32,1,0,0,0,32,33,1,0,0,0,33,34,5,0,0,
   	1,34,1,1,0,0,0,35,38,3,6,3,0,36,38,3,4,2,0,37,35,1,0,0,0,37,36,1,0,0,
-  	0,37,38,1,0,0,0,38,40,1,0,0,0,39,41,5,65,0,0,40,39,1,0,0,0,41,42,1,0,
+  	0,37,38,1,0,0,0,38,40,1,0,0,0,39,41,5,66,0,0,40,39,1,0,0,0,41,42,1,0,
   	0,0,42,40,1,0,0,0,42,43,1,0,0,0,43,3,1,0,0,0,44,45,3,8,4,0,45,5,1,0,0,
-  	0,46,47,5,62,0,0,47,48,5,53,0,0,48,7,1,0,0,0,49,55,3,10,5,0,50,53,3,12,
-  	6,0,51,52,5,48,0,0,52,54,3,12,6,0,53,51,1,0,0,0,53,54,1,0,0,0,54,56,1,
+  	0,46,47,5,63,0,0,47,48,5,54,0,0,48,7,1,0,0,0,49,55,3,10,5,0,50,53,3,12,
+  	6,0,51,52,5,49,0,0,52,54,3,12,6,0,53,51,1,0,0,0,53,54,1,0,0,0,54,56,1,
   	0,0,0,55,50,1,0,0,0,55,56,1,0,0,0,56,9,1,0,0,0,57,58,7,0,0,0,58,11,1,
   	0,0,0,59,65,3,18,9,0,60,65,3,20,10,0,61,65,3,16,8,0,62,65,3,14,7,0,63,
   	65,3,22,11,0,64,59,1,0,0,0,64,60,1,0,0,0,64,61,1,0,0,0,64,62,1,0,0,0,
-  	64,63,1,0,0,0,65,13,1,0,0,0,66,67,5,59,0,0,67,15,1,0,0,0,68,69,7,1,0,
-  	0,69,17,1,0,0,0,70,72,5,52,0,0,71,70,1,0,0,0,71,72,1,0,0,0,72,73,1,0,
-  	0,0,73,75,5,60,0,0,74,71,1,0,0,0,74,75,1,0,0,0,75,76,1,0,0,0,76,77,5,
-  	49,0,0,77,78,3,16,8,0,78,79,5,50,0,0,79,19,1,0,0,0,80,86,5,51,0,0,81,
-  	83,5,52,0,0,82,81,1,0,0,0,82,83,1,0,0,0,83,84,1,0,0,0,84,87,7,2,0,0,85,
-  	87,5,58,0,0,86,82,1,0,0,0,86,85,1,0,0,0,87,21,1,0,0,0,88,89,5,62,0,0,
+  	64,63,1,0,0,0,65,13,1,0,0,0,66,67,5,60,0,0,67,15,1,0,0,0,68,69,7,1,0,
+  	0,69,17,1,0,0,0,70,72,5,53,0,0,71,70,1,0,0,0,71,72,1,0,0,0,72,73,1,0,
+  	0,0,73,75,5,61,0,0,74,71,1,0,0,0,74,75,1,0,0,0,75,76,1,0,0,0,76,77,5,
+  	50,0,0,77,78,3,16,8,0,78,79,5,51,0,0,79,19,1,0,0,0,80,86,5,52,0,0,81,
+  	83,5,53,0,0,82,81,1,0,0,0,82,83,1,0,0,0,83,84,1,0,0,0,84,87,7,2,0,0,85,
+  	87,5,59,0,0,86,82,1,0,0,0,86,85,1,0,0,0,87,21,1,0,0,0,88,89,5,63,0,0,
   	89,23,1,0,0,0,11,27,31,37,42,53,55,64,71,74,82,86
   };
   staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
@@ -233,7 +233,7 @@ VMGrammarParser::ProgramContext* VMGrammarParser::program() {
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 281474976710654) != 0)) {
+      ((1ULL << _la) & 562949953421310) != 0)) {
       setState(30);
       instruction_line();
     }
@@ -327,6 +327,7 @@ VMGrammarParser::LineContext* VMGrammarParser::line() {
       case VMGrammarParser::ADD:
       case VMGrammarParser::SUB:
       case VMGrammarParser::REM:
+      case VMGrammarParser::FMA:
       case VMGrammarParser::WSTR:
       case VMGrammarParser::LOAD:
       case VMGrammarParser::NEW:
@@ -604,7 +605,7 @@ VMGrammarParser::InstructionContext* VMGrammarParser::instruction() {
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 6618602602374365184) != 0)) {
+      ((1ULL << _la) & -5209538868960821248) != 0)) {
       setState(50);
       operand();
       setState(53);
@@ -823,6 +824,10 @@ tree::TerminalNode* VMGrammarParser::OpcodeContext::WADDR() {
   return getToken(VMGrammarParser::WADDR, 0);
 }
 
+tree::TerminalNode* VMGrammarParser::OpcodeContext::FMA() {
+  return getToken(VMGrammarParser::FMA, 0);
+}
+
 
 size_t VMGrammarParser::OpcodeContext::getRuleIndex() const {
   return VMGrammarParser::RuleOpcode;
@@ -865,7 +870,7 @@ VMGrammarParser::OpcodeContext* VMGrammarParser::opcode() {
     setState(57);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 281474976710654) != 0))) {
+      ((1ULL << _la) & 562949953421310) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -1128,7 +1133,7 @@ VMGrammarParser::RegisterContext* VMGrammarParser::register_() {
     setState(68);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & 270215977642229760) != 0))) {
+      ((1ULL << _la) & 540431955284459520) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
